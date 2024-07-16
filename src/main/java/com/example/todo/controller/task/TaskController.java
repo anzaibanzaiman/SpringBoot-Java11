@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.Normalizer;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,12 +19,13 @@ public class TaskController {
 
     private final TaskService taskService;
 
+
     @GetMapping
     public String list(TaskSearchForm searchForm, Model model){
         var taskList = taskService.find(searchForm.toEntity()) //List<TaskEntity> -> List<TaskDTO>
                 .stream()
                 .map(TaskDTO::toDTO)
-                .toList();
+                .collect(Collectors.toList());
         model.addAttribute("taskList", taskList);
         model.addAttribute("searchDTO", searchForm.toDTO());
         return "tasks/list";

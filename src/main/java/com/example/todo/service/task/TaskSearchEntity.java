@@ -1,9 +1,11 @@
 package com.example.todo.service.task;
 
+import lombok.Value;
+
 import java.util.List;
 
-public record TaskSearchEntity(
-    String summary,
-    List<TaskStatus> status
-) {
+@Value
+public class TaskSearchEntity{
+    String summary;
+    List<TaskStatus> status;
 }
