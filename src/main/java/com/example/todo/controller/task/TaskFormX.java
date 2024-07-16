@@ -5,6 +5,7 @@ import com.example.todo.service.task.TaskStatus;
 import lombok.SneakyThrows;
 import lombok.Value;
 
+import javax.validation.constraints.NotEmpty;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,9 +15,12 @@ import java.util.List;
 @Value
 public class TaskFormX {
 
+    @NotEmpty
     List<String> summary;
     List<String> description;
+    @NotEmpty
     List<String> status;
+    @NotEmpty
     List<String> dayLimit;
 
     public List<TaskForm> toTaskFormList(){
