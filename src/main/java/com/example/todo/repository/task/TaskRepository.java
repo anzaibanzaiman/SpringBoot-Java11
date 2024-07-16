@@ -18,7 +18,7 @@ public interface TaskRepository {
     @Insert(" INSERT INTO tasks (summary, description, status, dayLimit) VALUES (#{task.summary}, #{task.description}, #{task.status}, #{task.dayLimit})")
     void insert(@Param("task") TaskEntity newEntity);
 
-    @Update(" UPDATE tasks SET summary     = #{task.summary}, description = #{task.description}, status      = #{task.status} dayLimit    = #{task.dayLimit} WHERE id = #{task.id} ")
+    @Update(" UPDATE tasks SET summary = #{task.summary}, description = #{task.description}, status = #{task.status} dayLimit = #{task.dayLimit} WHERE id = #{task.id} ")
     void update(@Param("task") TaskEntity entity);
 
     @Delete("DELETE FROM tasks WHERE id = #{taskId}")
