@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import com.example.todo.service.task.TaskSearchEntity;
 import com.example.todo.service.task.TaskEntity;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface TaskMapper {
 	
 	List<TaskEntity> select(TaskSearchEntity searchEntity);

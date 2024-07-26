@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@MapperScan("com.example.todo.repository.task")
 public class TaskServiceXml {
 
     private final TaskMapper taskMapper;

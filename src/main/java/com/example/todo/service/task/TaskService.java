@@ -1,3 +1,4 @@
+/*
 package com.example.todo.service.task;
 
 import com.example.todo.repository.task.TaskRepository;
@@ -12,29 +13,30 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class TaskService {
 
-    private final TaskRepository taskRepository;
+	private final TaskRepository taskRepository;
 
-    public List<TaskEntity> find(TaskSearchEntity searchEntity){
-        return taskRepository.select(searchEntity);
-    }
+	public List<TaskEntity> find(TaskSearchEntity searchEntity) {
+		return taskRepository.select(searchEntity);
+	}
 
-    public Optional<TaskEntity> findById(long taskId) {
-        return taskRepository.selectById(taskId);
-    }
+	public Optional<TaskEntity> findById(long taskId) {
+		return taskRepository.selectById(taskId);
+	}
 
-    @Transactional
-    public void create(TaskEntity newEntity) {
-        taskRepository.insert(newEntity);
-    }
+	@Transactional
+	public void create(TaskEntity newEntity) {
+		taskRepository.insert(newEntity);
+	}
 
-    @Transactional
-    public void update(TaskEntity entity) {
-        taskRepository.update(entity);
-    }
+	@Transactional
+	public void update(TaskEntity entity) {
+		taskRepository.update(entity);
+	}
 
-    @Transactional
-    public void delete(long id) {
-        taskRepository.delete(id);
-    }
+	@Transactional
+	public void delete(long id) {
+		taskRepository.delete(id);
+	}
 
 }
+*/
