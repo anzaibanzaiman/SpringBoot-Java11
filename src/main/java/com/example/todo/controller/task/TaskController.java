@@ -1,6 +1,7 @@
 package com.example.todo.controller.task;
 
-import com.example.todo.service.task.TaskService;
+//import com.example.todo.service.task.TaskService;
+import com.example.todo.service.task.TaskServiceXml;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,12 +18,14 @@ import java.util.stream.Collectors;
 @RequestMapping("/tasks")
 public class TaskController {
 
-    private final TaskService taskService;
+    //private final TaskService taskService;
+    private final TaskServiceXml taskServiceXml;
+
 
 
     @GetMapping
     public String list(TaskSearchForm searchForm, Model model){
-        var taskList = taskService.find(searchForm.toEntity()) //List<TaskEntity> -> List<TaskDTO>
+        var taskList = taskServiceXml.find(searchForm.toEntity()) //List<TaskEntity> -> List<TaskDTO>
                 .stream()
                 .map(TaskDTO::toDTO)
                 .collect(Collectors.toList());
@@ -33,7 +36,7 @@ public class TaskController {
 
     @GetMapping("/{id}") // GET /tasks/detail
     public String showDetail(@PathVariable("id") long taskId, Model model){
-        var taskDTO = taskService.findById(taskId)
+        var taskDTO = taskServiceXml.findById(taskId)
             .map(TaskDTO::toDTO)
                 .orElseThrow(TaskNotFoundException::new);
         model.addAttribute("task", taskDTO);
@@ -53,14 +56,14 @@ public class TaskController {
         if (bindingResult.hasErrors()) {
             return showCreationForm(form, model);
         }
-        taskService.create(form.toEntity());
+        taskServiceXml.create(form.toEntity());
         return "redirect:/tasks";
     }
     
     // GET /tasks/{taskId}/editForm
     @GetMapping("/{id}/editForm")
     public String showEditForm(@PathVariable("id") long id, Model model) {
-        var form = taskService.findById(id)
+        var form = taskServiceXml.findById(id)
                 .map(TaskForm::formEntity)
                 .orElseThrow(TaskNotFoundException::new);
         model.addAttribute("taskForm", form);
@@ -80,7 +83,7 @@ public class TaskController {
             return "tasks/form";
         }
         var entity = form.toEntity(id);
-        taskService.update(entity);
+        taskServiceXml.update(entity);
         return "redirect:/tasks/{id}";
     }
 
@@ -88,7 +91,7 @@ public class TaskController {
     // -> DELETE /tasks/1
     @DeleteMapping("{id}")
     public String delete(@PathVariable("id") long id) {
-        taskService.delete(id);
+        taskServiceXml.delete(id);
         return "redirect:/tasks";
     }
 
@@ -107,7 +110,7 @@ public class TaskController {
         List<TaskForm> taskFormList = form.toTaskFormList();
 
         for (TaskForm taskForm : taskFormList) {
-            taskService.create(taskForm.toEntity());
+            taskServiceXml.create(taskForm.toEntity());
         }
 
         return "redirect:/tasks";

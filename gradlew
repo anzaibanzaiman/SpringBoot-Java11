@@ -1,5 +1,5 @@
 #!/bin/sh
-
+#set JAVA_OPTS=-DproxyHost=tkyproxy.intra.tis.co.jp -DproxyPort=8080 
 #
 # Copyright © 2015-2021 the original authors.
 #

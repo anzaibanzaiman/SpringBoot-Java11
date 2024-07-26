@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-model href="file.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.todo.repository.task.TaskMapper">
+
+		<select id="select" resultType="List<TaskEntity>">
+			SELECT 
+				id, summary, description, status, dayLimit
+			FROM
+				tasks
+			<where>
+				<if test='condition.summary != null and !condition.summary.isBlank()'>
+					summary LIKE CONCAT('%', #{condition.summary}, '%') 
+				</if>
+			  	<if test='condition.status != null and !condition.status.isEmpty()'>
+			  		AND status IN ( 
+						<foreach item='item' index='index' collection='condition.status' separator=','>
+							#{item} 
+						</foreach>
+					)
+			  	</if> 
+			</where>
+		</select>
+		
+		
+		<select id="selectById" resultType="Optional<src.main.java.TaskEntity>" >
+			SELECT 
+				id, summary, description, status, dayLimit
+			FROM
+				tasks
+			WHERE
+				id = #{taskId}
+		</select>
+		
+		
+		<insert id="insert">
+			INSERT INTO 
+				tasks (summary, description, status, dayLimit)
+            VALUES 
+            	(#{task.summary}, #{task.description}, #{task.status}, #{task.dayLimit})
+		</insert>
+		
+		
+		<UPDATE id="update">
+			UPDATE tasks
+            SET
+              summary     = #{task.summary},
+              description = #{task.description},
+              status      = #{task.status}
+              dayLimit    = #{task.dayLimit}
+            WHERE
+              id = #{task.id}
+		</UPDATE>
+		
+		
+		<DELETE id="delete">
+			DELETE FROM tasks WHERE id = #{taskId}
+		</DELETE>
+		
+</mapper>
